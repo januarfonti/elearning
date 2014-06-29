@@ -161,6 +161,7 @@ class Rest_Server extends REST_Controller
 			$this->response($query, 200); 
 		}   
 
+
 		public function user_get()
     {
         if(!$this->get('id'))
@@ -190,6 +191,139 @@ class Rest_Server extends REST_Controller
 		} 
 
 		
+	public function ambil_kuis_get(){
+		$id_mk='';		
+		if ($this->uri->segment(3) === FALSE)
+		{
+    			$id_mk='';
+		}
+		else
+		{
+    			$id_mk = $this->uri->segment(3);
+		}
+
+		$query = $this->db->query("select * from tbl_kuis where id_mk='$id_mk'")->row();
+		$this->response($query, 200); 		
+	}
+
+	public function nilai_get(){
+
+		$id_user='';		
+		if ($this->uri->segment(3) === FALSE)
+		{
+    			$id_user='';
+		}
+		else
+		{
+    			$id_user = $this->uri->segment(3);
+		}
+
+		//$query = $this->db->query("select * from tbl_nilai where id_user='$id_user'");
+		$query = $this->model_matkul->tampil_nilai($id_user);
+		if($query->num_rows() > 0){
+			$respon = array(
+					'data_nilai'=>$query->result_array(),
+				);
+			$this->response($respon, 200);
+		}else{
+			$this->response(array('status'=>false,'msg'=>'Data tidak ditemukan'), 500);
+		}
+	}
+
+	public function all_nilai_get(){
+
+		$id_mk='';		
+		if ($this->uri->segment(3) === FALSE)
+		{
+    			$id_mk='';
+		}
+		else
+		{
+    			$id_mk = $this->uri->segment(3);
+		}
+
+		//$query = $this->db->query("select * from tbl_nilai where id_user='$id_user'");
+		$query = $this->model_matkul->tampil_all_nilai($id_mk);
+		if($query->num_rows() > 0){
+			$respon = array(
+					'data_nilai'=>$query->result_array(),
+				);
+			$this->response($respon, 200);
+		}else{
+			$this->response(array('status'=>false,'msg'=>'Data tidak ditemukan'), 500);
+		}
+	}
+
+
+
+
+	public function cek_event_get(){
+		$id_mk='';		
+		if ($this->uri->segment(3) === FALSE)
+		{
+    			$id_mk='';
+		}
+		else
+		{
+    			$id_mk = $this->uri->segment(3);
+		}
+
+		$query = $this->db->query("select * from tbl_kuis where id_mk='$id_mk'")->num_rows();
+		$this->response($query, 200); 		
+	}
+
+	public function update_event_post() { 
+			
+			$data = array( 	'judul' => $this->post('judul'),
+							'soal' => $this->post('soal'),
+							'jawaban' => $this->post('jawaban')
+							
+						);   
+			
+			$id = $this->get('id'); 
+			$query = $this->model_matkul->update_event($id,$data); 
+			$this->response($query, 200); 
+		}   
+
+		public function add_event_post() { 
+
+			$data = array( 	'id_mk' => $this->post('id_mk'), 
+						   	'judul' => $this->post('judul'),
+						   	'soal' => $this->post('soal'),
+						   	'jawaban' => $this->post('jawaban')
+						   	
+						);   
+
+			if($this->get('event')==1){ 
+				$query = $this->model_matkul->insert_event($data); 
+			} 
+			if($query) { $this->response($query, 200); 
+			} 
+			else 
+				{ 
+					$this->response($query, 404); // 200 being the HTTP response code 
+				} 
+		}
+
+		public function add_nilai_post() { 
+
+			$data = array( 	'id_mk' => $this->post('id_mk'), 
+						   	'id_user' => $this->post('id_user'),
+						   	'nilai' => $this->post('nilai')
+						   	
+						);   
+
+			if($this->get('hasil')==1){ 
+				$query = $this->model_matkul->insert_nilai($data); 
+			} 
+			if($query) { $this->response($query, 200); 
+			} 
+			else 
+				{ 
+					$this->response($query, 404); // 200 being the HTTP response code 
+				} 
+		}
+
 
 
 	public function lihatsoal_get() {  
@@ -275,9 +409,18 @@ class Rest_Server extends REST_Controller
 	public function insert_enroll_post() { 
 
 			
-
-			$data['id_mk']=$this->post('input_idmk');
-			$data['id_user']=$this->session->userdata('id_user');
+			$id_mk='';		
+			if ($this->uri->segment(3) === FALSE)
+			{
+	    			$id_mk='';
+			}
+			else
+			{
+	    			$id_mk = $this->uri->segment(3);
+			}
+			$data['id_mk']=$this->get('id_mk');
+			$data['id_user']=$this->get('id_user');
+			//$data['id_user']=$this->session->userdata('id_user');
 
 			if($this->get('enroll')==1){ 
 				$query = $this->model_matkul->insert_enroll($data); 
@@ -290,11 +433,25 @@ class Rest_Server extends REST_Controller
 				} 
 		}
 
+		public function coba_get() { 
+			//$data['id_mk']=$this->post('input_idmk');
+			$data=$this->session->userdata('nama');
+			//$data='keluar';
+			
+			if($data) { $this->response($data, 200); 
+			} 
+			else 
+				{ 
+					$this->response($data, 404); // 200 being the HTTP response code 
+				} 
+		}
+
 
 		public function tambah_matkul_post() { 
 
 			$data = array( 	'nama_matkul' => $this->post('nama_matkul'), 
-						   	'enroll' => $this->post('enroll')
+						   	'enroll' => $this->post('enroll'),
+						   	'id_dosen' => $this->post('id_dosen')
 						   	
 						);   
 
@@ -334,12 +491,44 @@ class Rest_Server extends REST_Controller
 		} 
 
 
+	function nilaii_get(){
+	$id_dosen = $this->session->userdata('id_user'); 		
+	if($id_dosen!=null){
+		$nilai = $this->db->query("select * from tbl_matkul where id_dosen=$id");
+		if($nilai->num_rows() == 1){
+			$respon = array(
+					'status'=>true,
+					//'id_siswa'=>$nilai->row()->id_siswa,
+					//'nama_siswa'=>$nilai->row()->nama_siswa,
+					//'n_bahasa'=>$nilai->row()->n_bahasa,
+					'nama_matkul'=>$nilai->row()->nama_matkul,
+					'id_dosen'=>$nilai->row()->id_dosen
+				);
+			$this->response($respon, 200);
+		}else{
+			$this->response(array('status'=>false,'msg'=>'Data tidak ditemukan'), 500);
+		}
+	}else{
+		$nilai = $this->db->get('tbl_matkul');
+		if($nilai->num_rows() > 0){
+			$respon = array(
+					'status'=>true,
+					'data_nilai_siswa'=>$nilai->result_array(),
+				);
+			$this->response($respon, 200);
+		}else{
+			$this->response(array('status'=>false,'msg'=>'Data tidak ditemukan'), 500);
+		}
+	}
+}
 
 
 
 
 
-public function nilai_get(){
+
+
+public function nilaiii_get(){
 	
 		//$username = $this->session->userdata('user');
 		$username='cahyo';

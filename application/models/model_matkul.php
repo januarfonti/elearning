@@ -17,8 +17,12 @@
         return $this->db->query("select * from tbl_matkul where id_dosen=$id")->result();
     }
 
-    public function tampil_nilai($username){
-        return $this->db->query("SELECT * FROM tbl_hasil INNER JOIN tbl_matkul ON tbl_matkul.id = tbl_hasil.id_mk where username='$username'");
+    public function tampil_nilai($id_user){
+        return $this->db->query("SELECT * FROM tbl_nilai INNER JOIN tbl_matkul ON tbl_matkul.id = tbl_nilai.id_mk INNER JOIN tbl_user ON tbl_user.id = tbl_nilai.id_user where id_user='$id_user'");
+    }
+
+    public function tampil_all_nilai($id_mk){
+        return $this->db->query("SELECT * FROM tbl_nilai INNER JOIN tbl_matkul ON tbl_matkul.id = tbl_nilai.id_mk INNER JOIN tbl_user ON tbl_user.id = tbl_nilai.id_user where id_mk='$id_mk'");
     }
 
     
@@ -34,6 +38,21 @@
     return $results;
     }
 
+     function update_event($id,$data){
+        $this->db->where('id',$id);
+        $query = $this->db->update('tbl_kuis',$data);
+        return $query;
+    }
+
+    function insert_event($data){
+        $query = $this->db->insert('tbl_kuis',$data);
+        return $query;
+    }
+
+    function insert_nilai($data){
+        $query = $this->db->insert('tbl_nilai',$data);
+        return $query;
+    }
 
 
 

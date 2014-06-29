@@ -31,7 +31,7 @@
                     <label for="inputPassword3" class="col-sm-2 control-label">Nama dosen</label>
                     <div class="col-sm-10">
                         
-                        <select name="dosen" class="form-control">
+                        <select name="id_dosen" class="form-control">
                         
                         <?php if(isset($dosen)){
                           foreach ($dosen as $row ) { 

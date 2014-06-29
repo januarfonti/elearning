@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard Elearning</title>
+    <title><?php echo $title; ?></title>
 
     <!-- Core CSS - Include with every page -->
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
@@ -43,11 +43,8 @@
                         <strong><i class="fa fa-user fa-fw"></i>  <?php echo $username=$this->session->userdata('nama'); ?> <i class="fa fa-caret-down"></i></strong>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
+                        
+                        
                         <li><a href="<?php echo base_url('index.php/rest_client/logout'); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
@@ -87,7 +84,7 @@
                             <a href="<?php echo base_url('index.php/rest_client/tampil_matkul_mahasiswa'); ?>"><i class="fa fa-book fa-fw"></i> Mata Kuliah</a>
                             </li>
                             <li>
-                            <a href="<?php echo base_url('index.php/rest_client/nilai'); ?>"><i class="fa fa-book fa-fw"></i> Nilai</a>
+                            <a href="<?php echo base_url('index.php/rest_client/nilai'); ?>"><i class="fa fa-clock-o"></i> Nilai</a>
                             </li>
                             <?php }
                             ?>

@@ -5,7 +5,7 @@
   <div class="panel-heading"><i class="fa fa-users fa-fw"></i>  <?php echo $judul_halaman; ?></div>
   <div class="panel-body">
   <?php $attr = array('role' => 'form','class' => 'form-horizontal'); ?>
-  <?php echo form_open('rest_client/cek_enroll',$attr) ?>
+  <?php echo form_open('rest_client/cek_enroll/'.$id_mk,$attr) ?>
 
   <input name="id" type="hidden" class="form-control" id="inputEmail3" value="">
 

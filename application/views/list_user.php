@@ -1,4 +1,5 @@
 <h1 class="page-header"><i class="fa fa-users fa-fw"></i> List User</h1> 
+<?php echo $this->session->flashdata('pesan'); ?>
 <table class="table table-bordered">
     <thead >
         <tr class="info">

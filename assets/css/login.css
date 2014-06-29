@@ -2,13 +2,13 @@
 Inspired by http://dribbble.com/shots/917819-iPad-Calendar-Login?list=shots&sort=views&timeframe=ever&offset=461
 */
 body {
-    background: url(http://habrastorage.org/files/c9c/191/f22/c9c191f226c643eabcce6debfe76049d.jpg);
+    background: url(../images/bg.jpg);
 }
 
 .jumbotron {
 	text-align: center;
 	width: 30rem;
-	height: 450px;
+	height: 530px;
 	border-radius: 0.5rem;
 	top: 0;
 	bottom: 0;

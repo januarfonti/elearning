@@ -13,7 +13,8 @@
 
    $row = $matkul_dosen; ?>
 
-<h3><span class="glyphicon glyphicon-book"></span></span>  <?php echo $row->nama_matkul; ?></h3>
+    <h3><a href="<?php echo base_url('index.php/rest_client/event'); ?>/<?php echo $row->id;?>"><span class="glyphicon glyphicon-book"></span></span> <?php echo $row->nama_matkul; ?></h3></a>
+    
 <hr />
    
 <?php  ?>    

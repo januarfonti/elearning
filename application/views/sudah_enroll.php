@@ -5,7 +5,7 @@
       <hr/>
       
         
-        <button onclick="window.location.href='<?php echo base_url('index.php/rest_client/lihatsoal');?>/<?php echo $id_mk; ?>'" class="btn btn-info "><span class="glyphicon glyphicon-book"></span>  Lihat Soal</button>
+        <button onclick="window.location.href='<?php echo base_url('index.php/rest_client/event');?>/<?php echo $id_mk; ?>'" class="btn btn-info "><span class="glyphicon glyphicon-book"></span>  Lihat Soal</button>
         <button onclick="window.location.href='<?php echo base_url('index.php/rest_client/tampil_matkul_mahasiswa'); ?>'" class="btn btn-danger "><span class="glyphicon glyphicon-home"></span>  Kembali Ke Pilihan Mata Kuliah</button>
 
       

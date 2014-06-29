@@ -1,4 +1,5 @@
     <h1 class="page-header"><span class="glyphicon glyphicon-th-list"></span>  Daftar Mata Kuliah</h1>
+    <?php echo $this->session->flashdata('pesan'); ?>
     <button onclick="window.location.href='<?php echo base_url('index.php/rest_client/tambah_matkul');?>'" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span>  Tambah Mata Kuliah</button>
     <?php echo $this->uri->segment(3); ?>
     <br />

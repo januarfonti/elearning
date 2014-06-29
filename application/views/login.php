@@ -21,16 +21,20 @@
 
 <br />
 <br />
+
 		<div class="jumbotron">
 	  		<div class="container">
 	    		<span class="glyphicon glyphicon-book"></span>
 	    		<h2>E-Learning</h2>
+
+
 	    		<div class="box">
-          <?php if($this->session->flashdata('flashInfo')):?>
-            <p class='flashMsg flashInfo'> <?php $this->session->flashdata('akun')?> </p>
-          <?php endif ?>
+
+          
 	    		<?php echo form_open('rest_client/proses_login'); ?>
-	        		<input name="username" type="text" placeholder="username" value="<?php echo set_value('username');?>">
+          <?php echo $this->session->flashdata('pesan'); ?>
+          <input name="username" type="text" placeholder="username" value="<?php echo set_value('username');?>">
+	        	
 		    		<input name="password" type="password" placeholder="password" value="<?php echo set_value('password');?>">
 		    		<button class="btn btn-default full-width"><span class="glyphicon glyphicon-ok"></span></button>
 		    		<a class="btn btn-default full-width" href="<?php echo base_url('index.php/rest_client/form_register'); ?>"><span class="glyphicon glyphicon-floppy-disk"></span></a>
